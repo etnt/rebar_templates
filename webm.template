@@ -1,0 +1,9 @@
+{variables, [{appid, "myapp"}
+             ,{name, "Torbjorn Tornkvist"}
+             ,{email, "<tobbe@tornkvist.org>"}
+            ]}.
+{template, "webmEmakefile", "Emakefile"}.
+{template, "webmMakefile",  "Makefile"}.
+{template, "webm.app.src",  "src/{{appid}}.app.src"}.
+{template, "webm_app.erl",  "src/{{appid}}_app.erl"}.
+{template, "webm_sup.erl",  "src/{{appid}}_sup.erl"}.

@@ -1,0 +1,12 @@
+SETUP
+----
+In the {{appid}} directory:
+
+ make init
+
+To compile the source code of the {{appid}} application:
+
+ make
+
+
+

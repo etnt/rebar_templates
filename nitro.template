@@ -1,0 +1,18 @@
+{variables, [{appid, "myapp"}
+             ,{name, "Torbjorn Tornkvist"}
+             ,{email, "<tobbe@tornkvist.org>"}
+             ,{nitro_dir, "/home/tobbe/git/nitrogen"}
+            ]}.
+{template, "Emakefile",            "Emakefile"}.
+{template, "Makefile",             "Makefile"}.
+{template, "README",               "README"}.
+{template, "LICENSE",              "LICENSE"}.
+{template, "nitrodep.inc",         "dep.inc"}.
+{template, "nitrostart.sh",        "start.sh"}.
+{template, "nitro.app.src",        "src/{{appid}}.app.src"}.
+{template, "nitro_app.erl",        "src/{{appid}}_app.erl"}.
+{template, "deps.erl",             "src/{{appid}}_deps.erl"}.
+{template, "nitro.index.erl",      "src/index.erl"}.
+{template, "nitro.common.erl",     "src/{{appid}}_common.erl"}.
+{template, "nitro.style.css",      "www/css/{{appid}}.css"}.
+{template, "nitro.grid.template",  "templates/grid.html"}.

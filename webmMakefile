@@ -1,0 +1,12 @@
+
+all:
+	erl -make
+
+init: all
+	mkdir ebin
+	(for i in \`ls dep/*\`; do cd \${i}; make; done)
+	cp src/{{appid}}.app.src ebin/{{appid}}.app 
+
+clean:
+	rm -rf ./ebin/*.beam
+
