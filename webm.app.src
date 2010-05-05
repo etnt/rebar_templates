@@ -1,0 +1,20 @@
+{application, {{appid}}, 
+ [
+  {description,  "{{appid}} - bla bla..."},
+
+  % The Module and Args used to start this application.
+  {mod, {{appid}},_app, []},
+
+  % All modules used by the application.
+  {modules,
+   [{{appid}}_app
+    ,{{appid}}_sup
+   ]},
+
+  % configuration parameters similar to those in the config file specified on the command line
+  {env, [{ip, "0.0.0.0}
+         ,{port, 8282}
+	 ,{log_dir, "/tmp"}
+	]}
+ ]
+}.

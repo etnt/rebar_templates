@@ -1,0 +1,58 @@
+/***** CSS RESET *****/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+/***** GRID *****/
+
+div.header {
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 1.0em;
+}
+
+.grid {
+    font-size: 1em; /* 13px */
+    line-height: 2em; /* 26px */
+    margin: 1em 0em;
+}
+
+.pad_right {
+    padding-right: 20px;
+}
+
+/***** STYLE *****/
+
+body { 
+    font-family: "Lucida Grande","Segoe UI","Trebuchet MS",Tahoma,Helvetica,Arial,sans-serif; 
+    font-size: 13px;
+    line-height: 1.5385em;
+    color: #222;
+}
+
+/***** MENU *****/
+
+
+.menu { 
+    color: #888;
+    background-color: #dfe2ea;
+    text-align: center;
+    font-size: 12px;
+    line-height: 12px;
+    padding: 8px;
+}
+
+.menu a {
+    color: #888;
+    padding: 3px 0px;
+    margin: 0px 10px;
+}
+
+.menu a:HOVER {
+    color: #FC2752;
+    text-decoration: none;
+}
+
+.menu a.selected {
+    color: #000;
+    background-color: #dfe2ea;
+    border-bottom: solid 3px #FC2752;
+}
