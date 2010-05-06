@@ -3,7 +3,7 @@
 
 -module(index).
 -include_lib("nitrogen/include/wf.hrl").
--export([main/0, title/0, layout/0]).
+-export([main/0, title/0, layout/0, event/1]).
 
 main() ->
     #template { file="./templates/grid.html" }.
@@ -23,4 +23,6 @@ layout() ->
               #grid_12 { body={{appid}}_common:footer() }
              ]}.
 
-
+event(Event) ->
+    io:format("Event=~p~n",[Event]),
+    ok.
