@@ -1,0 +1,12 @@
+{variables, [{appid,        "myapp"}
+             ,{name,        "Torbjorn Tornkvist"}
+             ,{email,       "etnt@redhoterlang.com"}
+	     ,{openid,      "http://etnt.myopenid.com/"}
+             ,{nitro_dir,   "/home/tobbe/git/nitrogen"}
+	     ,{www,         "http://www.redhoterlang.com"}
+	     ,{year,        "2010"}
+            ]}.
+{template, "couchdb.erl",   "src/{{appid}}_couchdb.erl"}.
+{template, "rfc4627.erl",   "src/rfc4627.erl"}.
+
+
