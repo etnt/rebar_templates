@@ -12,7 +12,7 @@
 {template, "nitro.app.src",        "src/{{appid}}.app.src"}.
 {template, "nitro_app.erl",        "src/{{appid}}_app.erl"}.
 {template, "nitro_sup.erl",        "src/{{appid}}_sup.erl"}.
-{template, "nitro_inets.erl",      "src/{{appid}}_inetsp.erl"}.
+{template, "nitro_inets.erl",      "src/{{appid}}_inets.erl"}.
 {template, "deps.erl",             "src/{{appid}}_deps.erl"}.
 {template, "nitro.index.erl",      "src/index.erl"}.
 {template, "nitro.common.erl",     "src/{{appid}}_common.erl"}.

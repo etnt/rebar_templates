@@ -6,7 +6,7 @@
 -module({{appid}}_app).
 -behaviour(application).
 
--export([start/2, stop/1, do/1]).
+-export([start/2, stop/1]).
 
 -include_lib("nitrogen/include/wf.hrl").
 
