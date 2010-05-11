@@ -9,15 +9,25 @@
 
 -include_lib("nitrogen/include/wf.hrl").
 
--define(PORT, 8080).
 
+%%% @doc This is the routing table.
+routes() ->
+    [{"/",            {{appid}}_web_index}
+     , {"/login",     {{appid}}_web_login}
+     , {"/logout",    {{appid}}_web_logout}
+     , {"/auth",      {{appid}}_web_auth}
+     , {"/ajax",      {{appid}}_web_ajax}
+     , {"/nitrogen",  static_file}
+     , {"/js",        static_file}
+     , {"/css",       static_file}
+    ].
 
 start_link() ->
     inets:start(),
     {ok, Pid} =
         inets:start(httpd,
-                    [{port, {{appid}}_deps:get_env(port,?PORT)}
-                     ,{server_name,  hostname() }
+                    [{port, {{appid}}_deps:get_env(port, {{appid}}:default_port())}
+                     ,{server_name,  {{appid}}_deps:get_env(hostname, {{appid}}:hostname())}
                      ,{server_root, "."}
                      ,{document_root, {{appid}}_deps:get_env(doc_root,"./www")}
                      ,{modules, [?MODULE]}
@@ -29,16 +39,15 @@ start_link() ->
     {ok, Pid}.
 
 stop() ->
-    httpd:stop_service({any, ?PORT}),
+    httpd:stop_service({any, {{appid}}_deps:get_env(port, {{appid}}:default_port())}),
     ok.
 
 do(Info) ->
     RequestBridge = simple_bridge:make_request(inets_request_bridge, Info),
     ResponseBridge = simple_bridge:make_response(inets_response_bridge, Info),
     nitrogen:init_request(RequestBridge, ResponseBridge),
+    replace_route_handler(),
     nitrogen:run().
 
-hostname() ->
-    {ok,Host} = inet:gethostname(),
-    Host.
-
+replace_route_handler() ->
+    wf_handler:set_handler(named_route_handler, routes()).

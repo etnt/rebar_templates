@@ -7,8 +7,16 @@
 
   % All modules used by the application.
   {modules,
-   [{{appid}}_app
+   [{{appid}}
+    ,{{appid}}_app
+    ,{{appid}}_sup
     ,{{appid}}_deps
+    ,{{appid}}_common
+    ,{{appid}}_inets
+    ,{{appid}}_web_index
+    ,{{appid}}_web_login
+    ,{{appid}}_web_logout
+    ,{{appid}}_web_auth
    ]},
 
   % configuration parameters similar to those in the config file specified on the command line
@@ -16,6 +24,12 @@
          ,{port, 8282}
 	 ,{log_dir, "/tmp"}
 	 ,{doc_root, "./www"}
-	]}
- ]
-}.
+	 ,{acl, ["{{openid}}"
+                ]}
+         ,{users,[{"{{openid}}",
+                   [{name, "{{name}}"}
+                    ,{email, "{{email}}"}]}
+                 ]}
+        ]
+  }
+]}.

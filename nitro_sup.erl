@@ -49,8 +49,8 @@ init([]) ->
 
     %Server = worker(server),
 
-    {ok, {{one_for_one, 10, 10}, 
+    {ok, { {one_for_one, 10, 10}, 
           [%Server
-          ]}}.
+          ]} }.
 
 

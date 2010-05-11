@@ -61,7 +61,7 @@ event(E) ->
     
 
 login_header() ->
-    #panel { class = "login_header", body = ["{{Appid}} logo here..."] }.
+    #panel { class = "login_header", body = ["{{appid}} logo here..."] }.
 
 
 login_form() ->

@@ -1,20 +1,27 @@
-{variables, [{appid, "myapp"}
-             ,{name, "Torbjorn Tornkvist"}
-             ,{email, "<tobbe@tornkvist.org>"}
-             ,{nitro_dir, "/home/tobbe/git/nitrogen"}
+{variables, [{appid,        "myapp"}
+             ,{name,        "Torbjorn Tornkvist"}
+             ,{email,       "etnt@redhoterlang.com"}
+	     ,{openid,      "http://etnt.myopenid.com/"}
+             ,{nitro_dir,   "/home/tobbe/git/nitrogen"}
+	     ,{www,         "http://www.redhoterlang.com"}
+	     ,{year,        "2010"}
             ]}.
 {template, "Emakefile",            "Emakefile"}.
 {template, "Makefile",             "Makefile"}.
-{template, "README",               "README"}.
+{template, "nitro.readme",         "README"}.
 {template, "LICENSE",              "LICENSE"}.
 {template, "nitrodep.inc",         "dep.inc"}.
 {template, "nitrostart.sh",        "start.sh"}.
 {template, "nitro.app.src",        "src/{{appid}}.app.src"}.
 {template, "nitro_app.erl",        "src/{{appid}}_app.erl"}.
+{template, "nitro.erl",            "src/{{appid}}.erl"}.
 {template, "nitro_sup.erl",        "src/{{appid}}_sup.erl"}.
 {template, "nitro_inets.erl",      "src/{{appid}}_inets.erl"}.
 {template, "deps.erl",             "src/{{appid}}_deps.erl"}.
-{template, "nitro.index.erl",      "src/index.erl"}.
-{template, "nitro.common.erl",     "src/{{appid}}_common.erl"}.
-{template, "nitro.style.css",      "www/css/{{appid}}.css"}.
+{template, "nitro_web_index.erl",  "src/{{appid}}_web_index.erl"}.
+{template, "nitro_web_auth.erl",   "src/{{appid}}_web_auth.erl"}.
+{template, "nitro_web_login.erl",  "src/{{appid}}_web_login.erl"}.
+{template, "nitro_web_logout.erl", "src/{{appid}}_web_logout.erl"}.
+{template, "nitro_common.erl",     "src/{{appid}}_common.erl"}.
+{template, "nitro.css",            "www/css/{{appid}}.css"}.
 {template, "nitro.grid.template",  "templates/grid.html"}.
