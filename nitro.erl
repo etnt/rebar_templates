@@ -45,14 +45,14 @@ rfc3339() ->
 rfc3339(Gsec) when is_integer(Gsec) ->
     rfc3339(gdate2datetime(Gsec));
 
-rfc3339({{Year, Month, Day}, {Hour, Min, Sec}}) ->
+rfc3339({ {Year, Month, Day}, {Hour, Min, Sec}}) ->
     io_lib:format("~4..0w-~2..0w-~2..0wT~2..0w:~2..0w:~2..0w~s",
                   [Year,Month,Day, Hour, Min, Sec, zone()]).  
 
 friendly_date(Gsec) when is_integer(Gsec) ->
     friendly_date(gdate2datetime(Gsec));
 
-friendly_date({{Year, Month, Day}, {Hour, Min, Sec}}) ->
+friendly_date({ {Year, Month, Day}, {Hour, Min, Sec}}) ->
     io_lib:format("~4..0w-~2..0w-~2..0w ~2..0w:~2..0w:~2..0w",
                   [Year,Month,Day, Hour, Min, Sec]).  
 
