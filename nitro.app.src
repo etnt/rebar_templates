@@ -20,10 +20,16 @@
    ]},
 
   % configuration parameters similar to those in the config file specified on the command line
-  {env, [{ip, "0.0.0.0"}
+  {env, [{http_server, inets}  % yaws | inets | mochiweb
+         ,{ip, {127,0,0,1}}
          ,{port, 8282}
-	 ,{log_dir, "/tmp"}
+	 ,{db_name, "{{appid}}" }
+	 ,{servername, "localhost"}
+	 ,{log_dir, "./log"}
 	 ,{doc_root, "./www"}
+	 ,{external_hostname, "localhost"}
+         ,{external_port, 8282}
+         ,{template, "./templates/grid.html"}
 	 ,{acl, ["{{openid}}"
                 ]}
          ,{users,[{"{{openid}}",

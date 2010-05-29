@@ -49,8 +49,12 @@ init([]) ->
 
     %Server = worker(server),
 
+    GettextServer = {gettext_server,{gettext_server,start_link,[{{appid}}]},
+                                    permanent,5000,worker,[gettext_server]},
+
     {ok, { {one_for_one, 10, 10}, 
-          [%Server
+          [%Server,
+           GettextServer
           ]} }.
 
 

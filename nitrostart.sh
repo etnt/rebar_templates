@@ -7,8 +7,7 @@ echo "Starting Nitrogen..."
 erl \\
     -sname ${NAME} \\
     -pa ./ebin ${NITROGEN_EBIN} ${SIMPLE_BRIDGE_EBIN} ${NPROCREG_EBIN} \\
-        ${EOPENID_EBIN} \\
-    -pa ./ebin ${NITROGEN_EBIN} ${SIMPLE_BRIDGE_EBIN} ${NPROCREG_EBIN} \\
+        ${EOPENID_EBIN} ${GETTEXT_EBIN} \\
     -eval "application:start(nprocreg)" \\
     -eval "application:start({{appid}})"
 

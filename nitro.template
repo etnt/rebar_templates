@@ -3,6 +3,7 @@
              ,{email,       "etnt@redhoterlang.com"}
 	     ,{openid,      "http://etnt.myopenid.com/"}
              ,{nitro_dir,   "/home/tobbe/git/nitrogen"}
+             ,{gettext_dir, "/home/tobbe/git/gettext"}
 	     ,{www,         "http://www.redhoterlang.com"}
 	     ,{year,        "2010"}
             ]}.

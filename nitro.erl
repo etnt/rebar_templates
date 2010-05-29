@@ -9,15 +9,81 @@
          , gdate/0
          , gdate2datetime/1
 	 , friendly_date/1
+         , user/0
+         , user/1
+         , authenticated/0
+         , authenticated/1
+         , template/0
+         , db_name/0
          , hostname/0
-         , default_port/0
+         , external_hostname/0
+         , ip/0
+         , port/0
+         , servername/0
+         , http_server/0
+         , log_dir/0
+         , docroot/0
+         , top_dir/0
+         , priv_dir/0
+         , gettext_dir/0
+         , couchdb_url/0
+         , couchdb_host/0
+         , couchdb_port/0
          , i2l/1
         ]).
 
+-import({{appid}}_deps, [get_env/2]).
+
 -include_lib("nitrogen/include/wf.hrl").
            
+-define(is_bool(B), ((B =:= true) orelse (B =:= false))).
 
-default_port() -> 8080.
+
+couchdb_url() ->
+    "http://"++couchdb_host()++":"++integer_to_list(couchdb_port()).
+
+db_name()           -> get_env(db_name, "{{appid}}").
+couchdb_host()      -> get_env(couchdb_host, "localhost").
+couchdb_port()      -> get_env(couchdb_port, 5984).
+log_dir()           -> get_env(log_dir, "./tmp").
+docroot()           -> get_env(docroot, "./www").
+servername()        -> get_env(servername, "localhost").
+ip()                -> get_env(ip, {127,0,0,1}).
+port()              -> get_env(port, 8283).
+http_server()       -> get_env(http_server, inets).
+external_hostname() -> get_env(external_hostname, hostname()).
+template()          -> get_env(template, "./templates/grid.html").
+gettext_dir()       -> priv_dir().
+    
+
+hostname() ->
+    {ok,Host} = inet:gethostname(),
+    Host.
+
+top_dir() ->
+    filename:join(["/"|lists:reverse(tl(lists:reverse(string:tokens(filename:dirname(code:which(?MODULE)),"/"))))]).
+
+priv_dir() ->
+    top_dir()++"/priv".
+
+user() ->
+    case get_env(dbg_authenticated, false) of
+        false -> wf:user();
+        User  -> User
+    end.
+
+user(User) when is_list(User) -> wf:user(User);
+user(_)                       -> undefined.
+
+authenticated() ->
+    case get_env(dbg_authenticated, false) of
+        false -> wf:session(authenticated);
+        _     -> true
+    end.
+
+authenticated(Bool) when ?is_bool(Bool) ->
+    wf:session(authenticated, Bool).
+
 
 %%
 %% @doc Return gregorian seconds as of now()
@@ -68,10 +134,6 @@ zone(Hr, Min) when Hr < 0; Min < 0 ->
 zone(Hr, Min) when Hr >= 0, Min >= 0 ->
     io_lib:format("+~2..0w~2..0w", [Hr, Min]).
 
-
-hostname() ->
-    {ok,Host} = inet:gethostname(),
-    Host.
 
 i2l(I) when is_integer(I) -> integer_to_list(I);
 i2l(L) when is_list(L)    -> L.
