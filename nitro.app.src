@@ -1,23 +1,19 @@
+%%%
+%%% NB: DO CHANGES IN THE src/{{appid}}.app.src FILE!
+%%%
+%%%  (and not in the: ebin/{{appid}}.app file, which is generated...)
+%%%
 {application, {{appid}}, 
  [
   {description,  "{{appid}} - bla bla..."},
+  {vsn, "%VSN%"},
 
   % The Module and Args used to start this application.
   {mod, { {{appid}}_app, []} },
 
   % All modules used by the application.
   {modules,
-   [{{appid}}
-    ,{{appid}}_app
-    ,{{appid}}_sup
-    ,{{appid}}_deps
-    ,{{appid}}_common
-    ,{{appid}}_inets
-    ,{{appid}}_web_index
-    ,{{appid}}_web_login
-    ,{{appid}}_web_logout
-    ,{{appid}}_web_auth
-   ]},
+   [%MODULES%]},
 
   % configuration parameters similar to those in the config file specified on the command line
   {env, [{http_server, inets}  % yaws | inets | mochiweb

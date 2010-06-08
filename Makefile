@@ -1,7 +1,10 @@
 include dep.inc
 
-all:
+all: app_init
 	erl -pa $(GETTEXT_EBIN) -make
+
+app_init:
+	$(MAKE) -f Makefile.init
 
 # Run this the very first time after creating the project
 init:
@@ -16,7 +19,7 @@ init:
 	-mkdir templates
 	-chmod +x ./start.sh
 	-(for i in \`ls dep/*\`; do cd \${i}; make; done)
-	cp src/{{appid}}.app.src ebin/{{appid}}.app 
+	$(MAKE) -f Makefile.init
 	$(MAKE) all
 
 clean:

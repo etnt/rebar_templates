@@ -9,6 +9,8 @@
             ]}.
 {template, "Emakefile",            "Emakefile"}.
 {template, "Makefile",             "Makefile"}.
+{template, "Makefile.init",        "Makefile.init"}.
+{template, "vsn.mk",               "vsn.mk"}.
 {template, "nitro.readme",         "README"}.
 {template, "LICENSE",              "LICENSE"}.
 {template, "nitrodep.inc",         "dep.inc"}.
