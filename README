@@ -1,12 +1,15 @@
-SETUP
-----
-In the {{appid}} directory:
+Here you'll find a number of rebar templates.
+Put them in your ~/.rebar/templates dir.
 
- make init
+To get started with a Nitrogen app, named foobar, run:
 
-To compile the source code of the {{appid}} application:
+  rebar create template=nitro appid=foobar
 
- make
+A web app using webmachine:
 
+  rebar create template=webm appid=blaha
 
+Another web app, without Nitrogen, but using SimpleBridge:
+
+  rebar create template=mobile appid=moblog
 

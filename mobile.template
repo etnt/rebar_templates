@@ -1,0 +1,21 @@
+{variables, [{appid,        "myapp"}
+             ,{name,        "Torbjorn Tornkvist"}
+             ,{email,       "etnt@redhoterlang.com"}
+	     ,{openid,      "http://etnt.myopenid.com/"}
+	     ,{www,         "http://www.redhoterlang.com"}
+	     ,{year,        "2010"}
+            ]}.
+{template, "mobileEmakefile",      "Emakefile"}.
+{template, "mobileMakefile",       "Makefile"}.
+{template, "Makefile.init",        "Makefile.init"}.
+{template, "vsn.mk",               "vsn.mk"}.
+{template, "READ.ME",              "README"}.
+{template, "LICENSE",              "LICENSE"}.
+{template, "mobiledep.inc",        "dep.inc"}.
+{template, "mobilestart.sh",       "start.sh"}.
+{template, "mobile.app.src",       "src/{{appid}}.app.src"}.
+{template, "mobile_app.erl",       "src/{{appid}}_app.erl"}.
+{template, "mobile.erl",           "src/{{appid}}.erl"}.
+{template, "mobile_sup.erl",       "src/{{appid}}_sup.erl"}.
+{template, "mobile_inets.erl",     "src/{{appid}}_inets.erl"}.
+{template, "deps.erl",             "src/{{appid}}_deps.erl"}.
