@@ -7,18 +7,20 @@ all: app_init
 app_init:
 	$(MAKE) -f Makefile.init
 
-# Run this the very first time after creating the project
+# Run this the very first time after cloning the project
 .PHONY: init
 init: init0 all 
-	$(MAKE) -f Makefile.init
-	$(MAKE) all
 
 .PHONY: init0
 init0: setup_deps
 	-mkdir ebin
 	-mkdir log
-	-mkdir -p www/css/
+	-mkdir -p www/css
+	(cd www/css; ln -s ../../dep/jQTouch/jqtouch/jqtouch.css .)
 	-mkdir -p www/js
+	(cd www/js; ln -s ../../dep/jQTouch/jqtouch/jqtouch.js .)
+	-mkdir -p www/themes
+	(cd www/themes; ln -s ../../dep/jQTouch/themes/jqt .)
 	-mkdir templates
 	-chmod +x ./start.sh
 	$(MAKE) -f Makefile.init
@@ -28,19 +30,29 @@ setup_deps: init_git init_simple_bridge init_yaws
 
 .PHONY: init_git
 init_git:
-	git init
+	git submodule init
+	git submodule update
 
 .PHONY: init_simple_bridge
 init_simple_bridge:
-	-mkdir dep
-	(git submodule add git://github.com/rklophaus/SimpleBridge.git dep/SimpleBridge)
 	(cd dep/SimpleBridge; make)
 
 .PHONY: init_yaws
 init_yaws: 
-	-mkdir dep
-	(git submodule add git://github.com/klacke/yaws.git dep/yaws)
 	(cd dep/yaws; autoconf; ./configure --disable-pam; make)
+
+# Run this the very first time after creating the project
+.PHONY: setup
+setup:
+	git init
+	git add . 
+	-mkdir dep
+	(git submodule add git://github.com/rklophaus/SimpleBridge.git dep/SimpleBridge)
+	(git submodule add git://github.com/klacke/yaws.git dep/yaws)
+	(git submodule add git://github.com/senchalabs/jQTouch.git dep/jQTouch)
+	git commit -am "Initial commit"
+	$(MAKE) init
+
 
 clean:
 	rm -rf ./ebin/*.beam

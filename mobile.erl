@@ -4,6 +4,8 @@
 -module({{appid}}).
 
 -export([  run/2
+         , build_response/4
+         , mk_response/4
          , rfc3339/0
          , rfc3339/1
          , gnow/0
@@ -36,13 +38,33 @@
 
 %% SimpleBridge entry
 run(Request, Response) ->
-    Response1 = Response:status_code(200),
-    Response2 = Response1:header("Content-Type", "text/html"),
-    Response3 = Response2:data(html()),
-    Response3:build_response().
+    {{appid}}_dispatch:run(Request, Response).
 
-html() ->
-    "<html><head></head><body>Hello World</body></html>".
+%% Build a SimpleBridge response
+build_response(Response, StatusCode, Headers, Data) ->
+    R = mk_response(Response, StatusCode, Headers, Data),
+    R:build_response().
+
+%% Create a SimpleBridge response
+mk_response(Response, StatusCode, Headers, Data) ->
+    foldf([mk_status_code(StatusCode),
+           mk_headers(Headers),
+           mk_data(Data)],
+          Response).
+
+mk_status_code(StatusCode) ->
+    fun(Response) -> Response:status_code(StatusCode) end.
+
+mk_headers(Headers) ->
+    fun(Response) ->
+            lists:foldl(fun({H,V},R) -> R:header(H,V) end, Response, Headers)
+    end.
+
+mk_data(Data) ->
+    fun(Response) -> Response:data(Data) end.
+
+foldf(Fs,Db) ->
+    lists:foldl(fun(F,D) -> F(D) end, Db, Fs).
 
 
 couchdb_url() ->

@@ -21,10 +21,11 @@ top(#controller{method       = get,
                 request      = Request, 
                 response     = Response, 
                 content_type = ContentType}) ->
+
     QueryString = Request:query_params(),
     %%Data = get_data(QueryString),
     %%Response = render(Data, ResContentType),
-    Data = <<"<html><head></head><body>The Top Page</body></html>">>,
+    Data = "<html><head></head><body>The Top Page</body></html>",
     {{appid}}:mk_response(Response, 200,
                        [{"Content-Type", ContentType}],
                        Data);
@@ -33,6 +34,7 @@ top(#controller{method       = post,
                 request      = Request, 
                 response     = Response, 
                 content_type = ResContentType}) ->
+
     Body =  Request:post_params(),
     Data = [], %% render:create(ResContentType),
     %% rest_cache:set_validation(Data), 

@@ -12,36 +12,55 @@
 -include("{{appid}}.hrl").
 -include_lib("yaws/include/yaws_api.hrl").
 
+%%% @doc This is the routing table.
+routes() ->
+    [  {"/",          {{appid}}_web_index}
+     , {"example",   {{appid}}_example_controller}
+     , {"entry",     {{appid}}_web_entry}
+     , {"about",     {{appid}}_web_about}
+     , {"nitrogen",  {{appid}}_static_file}
+     , {"js",        {{appid}}_static_file}
+     , {"css",       {{appid}}_static_file}
+     , {"images",    {{appid}}_static_file}
+     , {"themes",    {{appid}}_static_file}
+    ].
 
-run(Request, Response) ->
+run(Request, Response0) ->
     Headers = Request:headers(),
     Method  = Request:request_method(),
     Path    = Request:path(),
-    case Path =:= "" orelse Path =:= "/" of
-	true ->
-	    {ssi, "/index.html", "%%", []};
-	false ->
-	    case parse_accept(Headers) of
-		not_supported ->
-                    {{appid}}:mk_response(Response, 406,
-                                       [{"Content-Type", "text/plain"}],
-                                       "Not acceptable");
-		ContentType ->
-    		    {Controller, ControllerPath} = parse_path(Path),
-		    Meth = clean_method(Method),
-		    Args = #controller{request      = Request, 
-                                       response     = Response, 
-                                       content_type = ContentType, 
-                                       path         = ControllerPath, 
-                                       method       = Meth},
-		    run_controller(Controller, Args)
-	    end
+
+    try 
+        ContentType = parse_accept(Headers),
+        {Controller, ControllerPath} = parse_path(Path),
+        Meth = clean_method(Method),
+        Args = #controller{request      = Request, 
+                           response     = Response0, 
+                           content_type = ContentType, 
+                           path         = ControllerPath, 
+                           method       = Meth},
+        Response = run_controller(Controller, Args),
+        Response:build_response()
+
+    catch
+        throw:{ssi, SSI} ->
+            SSI;
+
+        throw:not_supported ->
+            {{appid}}:build_response(Response0, 406,
+                                  [{"Content-Type", "text/plain"}],
+                                  "Not acceptable");
+
+        throw:not_found ->
+            {{appid}}:build_response(Response0, 404,
+                                  [{"Content-Type", "text/plain"}],
+                                  "Not Found")
+
     end.
 
+
 run_controller(Controller, Args) ->
-    try
-        Response = Controller:dispatch(Args),
-        Response:build_response()
+    try Controller:dispatch(Args)
     catch
 	throw:bad_request ->
           {{appid}}:mk_response(Args#controller.response, 400,
@@ -53,7 +72,7 @@ run_controller(Controller, Args) ->
                              [{"Content-Type", "text/plain"}],
                              "Bad Method");
 
-        _:_ ->
+        E:_ when E==error orelse E==exit ->
           {{appid}}:mk_response(Args#controller.response, 404,
                              [{"Content-Type", "text/plain"}],
                              "Not Found")
@@ -89,7 +108,7 @@ parse_accept(Headers) ->
             false -> parse_accept(?SUPPORTED_MEDIA, AcceptList)
         end
     catch
-        _:_ -> not_supported
+        _:_ -> throw(not_supported)
     end.
             
  
@@ -104,13 +123,19 @@ parse_accept([], _) ->
     not_supported.
 
 % Parses the path and returns {top_controller, rest}
+parse_path(Path) when Path=="" orelse Path=="/" -> 
+    return_controller("/", []);
 parse_path(Path) ->
     CleanedPath = clean_path(Path),
     case string:tokens(CleanedPath, "/") of
-	[] ->
-	    {index, no_path};
-	[Top|Rest] ->
-	    {list_to_atom("{{appid}}_"++ Top ++ "_controller"), Rest}
+	[]         -> return_controller("/", []);
+	[Top|Rest] -> return_controller(Top, Rest)
+    end.
+
+return_controller(Top, Rest) ->
+    case lists:keyfind(Top, 1, routes()) of
+        {_,Controller} -> {Controller, Rest};
+        _              -> throw(not_found)
     end.
 
 clean_path(Path) ->

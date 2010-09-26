@@ -13,3 +13,4 @@ Another web app, without Nitrogen, but using SimpleBridge:
 
   rebar create template=mobile appid=moblog
 
+After creating the source from the templates, read the README.
