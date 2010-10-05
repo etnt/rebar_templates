@@ -21,6 +21,8 @@ init0: setup_deps
 	(cd www/js; ln -s ../../dep/jQTouch/jqtouch/jqtouch.js .)
 	-mkdir -p www/themes
 	(cd www/themes; ln -s ../../dep/jQTouch/themes/jqt .)
+	(cd www; ln -s ../dep/jQTouch/demos/public_objects/jqtouch.png .)
+	(cd www; ln -s ../dep/jQTouch/demos/public_objects/jqt_startup.png .)
 	-mkdir templates
 	-chmod +x ./start.sh
 	$(MAKE) -f Makefile.init

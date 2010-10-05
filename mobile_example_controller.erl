@@ -20,20 +20,20 @@ dispatch(_Args)                            -> erlang:error(bad_uri).
 top(#controller{method       = get, 
                 request      = Request, 
                 response     = Response, 
-                content_type = ContentType}) ->
+                accept       = ContentType}) ->
 
     QueryString = Request:query_params(),
     %%Data = get_data(QueryString),
     %%Response = render(Data, ResContentType),
     Data = "<html><head></head><body>The Top Page</body></html>",
     {{appid}}:mk_response(Response, 200,
-                       [{"Content-Type", ContentType}],
+                       [{"Content-Type", "text/html"}],
                        Data);
 
 top(#controller{method       = post, 
                 request      = Request, 
                 response     = Response, 
-                content_type = ResContentType}) ->
+                accept       = ResContentType}) ->
 
     Body =  Request:post_params(),
     Data = [], %% render:create(ResContentType),

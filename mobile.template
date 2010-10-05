@@ -19,6 +19,8 @@
 {template, "mobile_sup.erl",       "src/{{appid}}_sup.erl"}.
 {template, "mobile_inets.erl",     "src/{{appid}}_inets.erl"}.
 {template, "mobile_dispatch.erl",  "src/{{appid}}_dispatch.erl"}.
+{template, "mobile_web_index.erl", "src/{{appid}}_web_index.erl"}.
+{template, "mobile_static_file.erl", "src/{{appid}}_static_file.erl"}.
 {template, "mobile_example_controller.erl",  "src/{{appid}}_example_controller.erl"}.
 {template, "mobile.hrl",           "include/{{appid}}.hrl"}.
 {template, "mobile_index.html",    "www/index.html"}.

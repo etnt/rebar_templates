@@ -14,7 +14,7 @@
 
 %%% @doc This is the routing table.
 routes() ->
-    [  {"/",          {{appid}}_web_index}
+    [  {"/",         {{appid}}_web_index}
      , {"example",   {{appid}}_example_controller}
      , {"entry",     {{appid}}_web_entry}
      , {"about",     {{appid}}_web_about}
@@ -22,21 +22,20 @@ routes() ->
      , {"js",        {{appid}}_static_file}
      , {"css",       {{appid}}_static_file}
      , {"images",    {{appid}}_static_file}
+     , {"img",       {{appid}}_static_file}
      , {"themes",    {{appid}}_static_file}
     ].
 
 run(Request, Response0) ->
-    Headers = Request:headers(),
     Method  = Request:request_method(),
     Path    = Request:path(),
 
     try 
-        ContentType = parse_accept(Headers),
-        {Controller, ControllerPath} = parse_path(Path),
+        {Controller, CPath, ControllerPath} = parse_route(Path),
         Meth = clean_method(Method),
         Args = #controller{request      = Request, 
                            response     = Response0, 
-                           content_type = ContentType, 
+                           cpath        = CPath, 
                            path         = ControllerPath, 
                            method       = Meth},
         Response = run_controller(Controller, Args),
@@ -98,34 +97,10 @@ run_controller(Controller, Args) ->
 %%    end.
 
 
-parse_accept(Headers) ->
-    io:format("Headers=~p~n",[Headers]),
-    try 
-        {accept, Accept} = lists:keyfind(accept, 1, Headers),
-        AcceptList = string:tokens(Accept, ","),
-        case lists:member("*/*", AcceptList) of
-            true  -> "application/xhtml+xml";
-            false -> parse_accept(?SUPPORTED_MEDIA, AcceptList)
-        end
-    catch
-        _:_ -> throw(not_supported)
-    end.
-            
- 
-parse_accept([Type | RestSupportedTypes], UserAcceptedTypes)->
-    case lists:member(Type, UserAcceptedTypes) of
-	true ->
-	    Type;
-	false ->
-	    parse_accept(RestSupportedTypes, UserAcceptedTypes)
-    end;
-parse_accept([], _) ->
-    not_supported.
-
 % Parses the path and returns {top_controller, rest}
-parse_path(Path) when Path=="" orelse Path=="/" -> 
+parse_route(Path) when Path=="" orelse Path=="/" -> 
     return_controller("/", []);
-parse_path(Path) ->
+parse_route(Path) ->
     CleanedPath = clean_path(Path),
     case string:tokens(CleanedPath, "/") of
 	[]         -> return_controller("/", []);
@@ -134,7 +109,7 @@ parse_path(Path) ->
 
 return_controller(Top, Rest) ->
     case lists:keyfind(Top, 1, routes()) of
-        {_,Controller} -> {Controller, Rest};
+        {_,Controller} -> {Controller, Top, Rest};
         _              -> throw(not_found)
     end.
 

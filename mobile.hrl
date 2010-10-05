@@ -14,7 +14,8 @@
 -record(controller, 
         {request,
          response,
-         content_type,
+         accept,
+         cpath,
          path,
          method
         }).
