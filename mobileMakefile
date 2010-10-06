@@ -20,6 +20,7 @@ init0: setup_deps
 	-mkdir -p www/js
 	(cd www/js; ln -s ../../dep/jQTouch/jqtouch/jqtouch.js .)
 	-mkdir -p www/themes
+	(cd www; ln -s ../dep/jQTouch/themes/jqt/img .)
 	(cd www/themes; ln -s ../../dep/jQTouch/themes/jqt .)
 	-mkdir -p www/images
 	(cd www/images; ln -s ../../dep/jQTouch/demos/public_objects/jqtouch.png .)
