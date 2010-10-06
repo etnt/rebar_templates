@@ -10,9 +10,9 @@
     <script src="/js/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
         var jQT = new $.jQTouch({
-            icon: 'jqtouch.png',
+            icon: '/images/jqtouch.png',
             addGlossToIcon: false,
-            startupScreen: 'jqt_startup.png',
+            startupScreen: '/images/jqt_startup.png',
             statusBar: 'black'
         });
 
@@ -27,14 +27,42 @@
     </script>
     <style type="text/css" media="screen">
         /* Custom Style */
+            #about {
+                padding: 100px 10px 40px;
+                text-shadow: rgba(255, 255, 255, 0.3) 0px -1px 0;
+                font-size: 13px;
+                text-align: center;
+                background: #161618;
+            }
+            #about p {
+                margin-bottom: 8px;
+            }
+            #about a {
+                color: #fff;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
     </style>
   </head>
   <body>
+    <div id="about" class="selectable"> 
+      <p><img src="/images/jqtouch.png" /></p> 
+      <p><strong>jQTouch</strong><br />Version 1.0 beta<br /> 
+        <a href="http://www.davidkaneda.com">By David Kaneda</a></p> 
+      <p><em>Create powerful mobile apps with<br /> just HTML, CSS, and jQuery.</em></p> 
+      <p> 
+        <a href="http://twitter.com/jqtouch" target="_blank">@jQTouch on Twitter</a> 
+      </p> 
+      <p><br /><br /><a href="#" class="grayButton goback">Close</a></p> 
+    </div> 
+
     <div id="jqt">
       <div id="home">
-        <div class="toolbar">
-          <h1>Public Functions</h1>
-        </div>
+        <div class="toolbar"> 
+          <h1>Sample Home</h1> 
+          <a class="button slideup" id="infoButton" href="#about">About</a> 
+        </div> 
         <div class="info">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquet euismod venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse laoreet, dui et elementum elementum, nibh neque laoreet dolor, vel malesuada nunc lorem in turpis. <a href="#" id="go_link">Go to Page 2 &raquo;</a> Quisque malesuada, lacus at viverra euismod, enim tellus gravida mauris, et placerat turpis massa in arcu. <a href="#" id="ajax_link">Go to Ajax page &raquo;</a>
           
