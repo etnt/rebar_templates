@@ -1,5 +1,5 @@
 NAME={{appid}}
-SIMPLE_BRIDGE_EBIN=./dep/SimpleBridge/ebin
+SIMPLE_BRIDGE_EBIN=./dep/simple_bridge/ebin
 YAWS_DIR=./dep/yaws
 YAWS_EBIN=${YAWS_DIR}/ebin
 GETTEXT_DIR=./dep/gettext

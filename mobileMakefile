@@ -39,7 +39,7 @@ init_git:
 
 .PHONY: init_simple_bridge
 init_simple_bridge:
-	(cd dep/SimpleBridge; make)
+	(cd dep/simple_bridge; make)
 
 .PHONY: init_yaws
 init_yaws: 
@@ -51,7 +51,7 @@ setup:
 	git init
 	git add . 
 	-mkdir dep
-	(git submodule add git://github.com/rklophaus/SimpleBridge.git dep/SimpleBridge)
+	(git submodule add git://github.com/nitrogen/simple_bridge.git dep/simple_bridge)
 	(git submodule add git://github.com/klacke/yaws.git dep/yaws)
 	(git submodule add git://github.com/senchalabs/jQTouch.git dep/jQTouch)
 	git commit -am "Initial commit"
