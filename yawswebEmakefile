@@ -1,0 +1,6 @@
+{ './src/*', [
+	{ i, "./include" },
+	{ i, "dep" },
+	{ outdir, "./ebin" },
+	debug_info
+]}.
