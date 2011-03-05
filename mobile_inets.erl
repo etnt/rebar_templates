@@ -14,26 +14,14 @@ start_link() ->
     start_link({{appid}}:http_server()).
 
 start_link(yaws) ->
-    	SC = #sconf {
-		appmods     = [{"/", ?MODULE}],
-		docroot     = {{appid}}:docroot(),
-		port        = {{appid}}:port(),
-		servername  = {{appid}}:servername(),
-		listen      = {{appid}}:ip()
-	},
-	DefaultGC = yaws_config:make_default_gconf(false, {{appid}}),
-	GC = DefaultGC#gconf {
-		logdir = {{appid}}:log_dir(),
-		cache_refresh_secs = 5
-	},
-	% Following code adopted from yaws:start_embedded/4. 
-	% This will need to change if Yaws changes!!!
-	ok = application:set_env(yaws, embedded, true),
-	{ok, Pid} = yaws_sup:start_link(),
-	yaws_config:add_yaws_soap_srv(GC),
-	SCs = yaws_config:add_yaws_auth([SC]),
-	yaws_api:setconf(GC, [SCs]),
-	{ok, Pid};
+    SL = [{appmods,    [{"/", ?MODULE}]},
+	  {port,       {{appid}}:port()},
+	  {servername, {{appid}}:servername()},
+	  {listen,     {{appid}}:ip()}],
+    GL = [{logdir,     {{appid}}:log_dir()},
+	  {cache_refresh_secs, 5}],
+    ok = yaws:start_embedded({{appid}}:docroot(), SL, GL, "bfp"),
+    {ok, whereis(yaws_sup)};
 
 start_link(inets) ->
     inets:start(),
