@@ -1,0 +1,35 @@
+%%-*- mode: erlang -*-
+%% Basic Webmachine application skeleton
+
+%% Variables:
+%%   appid: name of the application to build
+%%          default = "wmskel"
+%%   rebardir: path to rebar from this template
+%%               default = "/home/tobbe/bin"
+%%   prefix: path where the application should be created
+%%           default = "."
+{variables, [{appid, "wmskel"},
+             {rebardir, "/home/tobbe/bin"},
+             {prefix, "."}]}.
+
+%% main project files
+{template, "wmskel/README", "{{prefix}}/README"}.
+{template, "wmskel/Makefile", "{{prefix}}/Makefile"}.
+{template, "wmskel/rebar.config", "{{prefix}}/rebar.config"}.
+{file, "{{rebardir}}/rebar", "{{prefix}}/rebar"}.
+{chmod, 8#744, "{{prefix}}/rebar"}.
+{template, "wmskel/start.sh", "{{prefix}}/start.sh"}.
+{chmod, 8#744, "{{prefix}}/start.sh"}.
+
+{template, "wmskel/src/wmskel.app.src", "{{prefix}}/src/{{appid}}.app.src"}.
+
+{template, "wmskel/src/wmskel.erl", "{{prefix}}/src/{{appid}}.erl"}.
+{template, "wmskel/src/wmskel_app.erl", "{{prefix}}/src/{{appid}}_app.erl"}.
+{template, "wmskel/src/wmskel_sup.erl", "{{prefix}}/src/{{appid}}_sup.erl"}.
+{template, "wmskel/src/wmskel_resource.erl", "{{prefix}}/src/{{appid}}_resource.erl"}.
+
+{template, "wmskel/priv/dispatch.conf", "{{prefix}}/priv/dispatch.conf"}.
+{dir, "wmskel/{{prefix}}/priv/www"}.
+
+%% dependencies
+{dir, "wmskel/{{prefix}}/deps"}.
