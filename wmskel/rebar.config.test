@@ -1,0 +1,14 @@
+%%-*- mode: erlang -*-
+
+{deps_dir, ["deps"]}.
+
+{deps, [{webmachine, "1.9.0", 
+         {git, "git://github.com/basho/webmachine.git", 
+          {tag, "1.9.0"}}}]}.
+
+%% Erlang compiler options
+{erl_opts, [{src_dirs, ["test"]}]}.
+
+%% Option to pass extra parameters when launching Common Test
+%{ct_extra_params, "-boot start_sasl -s myapp"}.
+

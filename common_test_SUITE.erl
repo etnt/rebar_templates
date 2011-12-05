@@ -40,6 +40,30 @@
           end)())
        ).
 
+-define(MATCH(Pattern,Expr),
+        (begin
+             Pattern =
+                 (fun() ->
+                          try Expr of
+                              Pattern = __MATCH_Expr_Result ->
+                                  %% The pattern matching here is done to
+                                  %% muffle warnings about unused variables.
+                                  Pattern = __MATCH_Expr_Result;
+                              __MATCH_Expr_Result ->
+                                  exit({?LINE,
+                                        {'MATCH', ??Pattern,
+                                         __MATCH_Expr_Result},
+                                        erlang:get_stacktrace()})
+                          catch
+                              _:__MATCH_R ->
+                                  exit({?LINE, __MATCH_R,
+                                        erlang:get_stacktrace()})
+                          end
+                  end)(),
+             ok
+         end)
+       ).
+
 %% ---------------------------------------------------------------------
 %% I N I T  &  S E T U P
 %% ---------------------------------------------------------------------
