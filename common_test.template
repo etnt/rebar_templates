@@ -1,0 +1,16 @@
+%%-*- mode: erlang -*-
+%% Basic Common Test skeleton
+
+%% Variables:
+%%   appid: name of the application to build
+%%          default = "ct"
+%%   rebardir: path to rebar from this template
+%%               default = "/home/tobbe/bin"
+%%   prefix: path where the application should be created
+%%           default = "./test"
+{variables, [{appid, "ct"},
+             {rebardir, "/home/tobbe/bin"},
+             {prefix, "./test"}]}.
+
+%% main project files
+{template, "common_test_SUITE.erl", "{{prefix}}/{{appid}}_SUITE.erl"}.
