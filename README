@@ -9,6 +9,10 @@ A web app using webmachine:
 
   rebar create template=webm appid=blaha
 
+A more complete  webmachine skeleton
+
+  rebar create template=wmskel appid=mysim prefix=simulator
+
 Another web app, without Nitrogen, but using SimpleBridge:
 
   rebar create template=mobile appid=moblog

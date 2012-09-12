@@ -17,8 +17,8 @@
 {template, "wmskel/Makefile", "{{prefix}}/Makefile"}.
 {template, "wmskel/rebar.config", "{{prefix}}/rebar.config"}.
 {template, "wmskel/rebar.config.test", "{{prefix}}/rebar.config.test"}.
-{file, "{{rebardir}}/rebar", "{{prefix}}/rebar"}.
-{chmod, 8#744, "{{prefix}}/rebar"}.
+%%{file, "{{rebardir}}/rebar", "{{prefix}}/rebar"}.
+%%{chmod, 8#744, "{{prefix}}/rebar"}.
 {template, "wmskel/start.sh", "{{prefix}}/start.sh"}.
 {chmod, 8#744, "{{prefix}}/start.sh"}.
 
@@ -30,7 +30,8 @@
 {template, "wmskel/src/wmskel_resource.erl", "{{prefix}}/src/{{appid}}_resource.erl"}.
 
 {template, "wmskel/priv/dispatch.conf", "{{prefix}}/priv/dispatch.conf"}.
-{dir, "wmskel/{{prefix}}/priv/www"}.
+{dir, "{{prefix}}/priv/www"}.
+{dir, "{{prefix}}/priv/log"}.
 
 %% dependencies
-{dir, "wmskel/{{prefix}}/deps"}.
+{dir, "{{prefix}}/deps"}.

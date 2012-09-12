@@ -4,31 +4,31 @@ APP := {{appid}}
 .PHONY: deps
 
 all: deps
-	@./rebar compile
+	@rebar compile
 
 deps:
-	@./rebar get-deps
+	@rebar get-deps
 
 clean:
-	@./rebar clean
+	@rebar clean
 
 distclean: clean
-	@./rebar delete-deps
+	@rebar delete-deps
 
 test: local_clean
-	@./rebar eunit skip_app=mochiweb,webmachine
+	@rebar eunit skip_app=mochiweb,webmachine
 
 ct: all
-	@./rebar -C rebar.config.test ct app={{appid}}
+	@rebar -C rebar.config.test ct app={{appid}}
 
 ctv: all
-	@./rebar -C rebar.config.test ct app={{appid}} verbose=1
+	@rebar -C rebar.config.test ct app={{appid}} verbose=1
 
 local_clean:
 	@rm -f ./ebin/* .eunit/*
 
 xref: all
-	@./rebar xref skip_app=mochiweb,webmachine
+	@rebar xref skip_app=mochiweb,webmachine
 
 docs:
 	@erl -noshell -run edoc_run application '$(APP)' '"."' '[]'
